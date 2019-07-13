@@ -1,5 +1,6 @@
 {
   "name": "@ianwalter/commits",
+  "license": "SEE LICENSE IN LICENSE",
   "bin": {
     "commits": "cli.js"
   },
