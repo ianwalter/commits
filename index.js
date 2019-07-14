@@ -1,4 +1,5 @@
 const execa = require('execa')
+const strip = require('strip')
 
 module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
   const data = { commits: [], markdown: '' }
@@ -11,41 +12,49 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
   start = isNaN(startNumber) ? start : startNumber
 
   //
+  const { stdout: remote } = await execa('git', ['config', 'remote.origin.url'])
+  const [repo] = remote.split(':')[1].split('.git')
+  const ghUrl = `https://github.com/${repo}`
+
+  //
   if (typeof start === 'number') {
     args = args.concat(['-n', start])
-    data.description = `Last ${start} commits`
+    data.description = `**Last ${start} commits**`
   } else {
-    const format = '--format=%h'
-    const { stdout } = await execa('git', ['log', `--grep=${start}`, format])
+    //
+    const startArgs = ['log', '--format=%h', `--grep=${start}`]
+    const { stdout: startHash } = await execa('git', startArgs)
 
-    if (!stdout) {
+    if (!startHash) {
       throw new Error(`Start commit not found using: ${start}`)
     }
 
-    let endHash
-    if (end !== 'HEAD') {
-      const { stdout } = await execa('git', ['log', `--grep=${end}`, format])
-      endHash = stdout
+    //
+    const endIsNotHead = end !== 'HEAD'
+    let endHash = end
+    if (endIsNotHead) {
+      const result = await execa('git', ['log', `--grep=${end}`, '--format=%h'])
+      endHash = result.stdout
     }
 
-    data.description = `Commits from ${start} (${stdout}) to ${end}`
+    //
+    const commitRange = `${startHash}^..${endHash}`
+    const commitRangeUrl = `${ghUrl}/compare/${encodeURIComponent(commitRange)}`
 
-    if (endHash) {
-      data.description += ` (${endHash})`
+    //
+    data.description = `**Commits from [${start} <${startHash}> to ${end}`
+    if (endIsNotHead) {
+      data.description += ` <${endHash}>`
     }
+    data.description += `](${commitRangeUrl})**`
 
-    args.push(`${stdout}^..${end}`)
+    args.push(commitRange)
   }
 
   //
   if (excludeMerges) {
     args.push('--no-merges')
   }
-
-  //
-  const { stdout: remote } = await execa('git', ['config', 'remote.origin.url'])
-  const [repo] = remote.split(':')[1].split('.git')
-  const ghUrl = `https://github.com/${repo}`
 
   //
   const { stdout } = await execa('git', args)
@@ -65,7 +74,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
           inBody = false
         } else {
           acc.commits[acc.commits.length - 1].body = hash
-          acc.markdown += '\n>   ' + hash
+          acc.markdown += '\n>   ' + strip(hash)
           inBody = true
         }
       }

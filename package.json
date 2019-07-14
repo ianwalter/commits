@@ -36,7 +36,8 @@
     "@ianwalter/print": "^3.0.1",
     "execa": "^2.0.3",
     "marked": "^0.7.0",
-    "marked-terminal": "^3.2.0"
+    "marked-terminal": "^3.2.0",
+    "strip": "^3.0.0"
   },
   "devDependencies": {
     "@ianwalter/eslint-config": "^2.0.1",
