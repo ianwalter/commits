@@ -1,28 +1,36 @@
 const execa = require('execa')
 
-module.exports = async (start = 30, end, excludeMerges = true) => {
+module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
   const data = { commits: [], markdown: '' }
 
   //
   let args = ['log', '--format=%hSUBJECT:%s\n%b']
 
   //
-  try {
-    start = parseInt(start, 10)
-    end = parseInt(end, 10)
-  } catch {}
+  const startNumber = parseInt(start, 10)
+  start = isNaN(startNumber) ? start : startNumber
 
   //
   if (typeof start === 'number') {
     args = args.concat(['-n', start])
     data.description = `Last ${start} commits`
   } else {
-    args.push(`--grep='${start}'`)
-  }
+    const format = '--format=%h'
+    const { stdout } = await execa('git', ['log', `--grep=${start}`, format])
 
-  //
-  if (typeof end === 'boolean') {
-    excludeMerges = end
+    let endHash
+    if (end !== 'HEAD') {
+      const { stdout } = await execa('git', ['log', `--grep=${end}`, format])
+      endHash = stdout
+    }
+
+    data.description = `Commits from ${start} (${stdout}) to ${end}`
+
+    if (endHash) {
+      data.description += ` (${endHash})`
+    }
+
+    args.push(`${stdout}^..${end}`)
   }
 
   //
