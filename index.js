@@ -1,6 +1,8 @@
 const execa = require('execa')
 
 module.exports = async (start = 30, end, excludeMerges = true) => {
+  const data = { commits: [], markdown: '' }
+
   //
   let args = ['log', '--format=%hSUBJECT:%s\n%b']
 
@@ -13,6 +15,7 @@ module.exports = async (start = 30, end, excludeMerges = true) => {
   //
   if (typeof start === 'number') {
     args = args.concat(['-n', start])
+    data.description = `Last ${start} commits`
   } else {
     args.push(`--grep='${start}'`)
   }
@@ -57,9 +60,6 @@ module.exports = async (start = 30, end, excludeMerges = true) => {
 
       return acc
     },
-    {
-      commits: [],
-      markdown: ''
-    }
+    data
   )
 }

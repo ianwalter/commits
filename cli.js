@@ -10,8 +10,11 @@ marked.setOptions({ renderer: new TerminalRenderer() })
 
 async function run () {
   const { _: [start, end] } = cli({ name: 'commits' })
-  const { markdown } = await commits(start, end)
-  process.stdout.write(marked(markdown))
+  const { description, markdown } = await commits(start, end)
+
+  print.info(`${description}:\n`)
+
+  process.stdout.write(marked(markdown).trim() + '\n')
 }
 
 run().catch(err => print.error(err))
