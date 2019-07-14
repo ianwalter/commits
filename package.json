@@ -1,5 +1,7 @@
 {
   "name": "@ianwalter/commits",
+  "description": "Display a set of git commits in the terminal",
+  "version": "0.0.1",
   "license": "SEE LICENSE IN LICENSE",
   "bin": {
     "commits": "cli.js"
@@ -7,11 +9,46 @@
   "scripts": {
     "commits": "./cli.js"
   },
+  "files": [
+    "cli.js",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianwalter/commits.git"
+  },
+  "keywords": [
+    "git",
+    "commits",
+    "list",
+    "range",
+    "markdown"
+  ],
+  "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
+  "bugs": {
+    "url": "https://github.com/ianwalter/commits/issues"
+  },
+  "homepage": "https://github.com/ianwalter/commits#readme",
   "dependencies": {
     "@ianwalter/cli": "^1.2.0",
     "@ianwalter/print": "^3.0.1",
     "execa": "^2.0.3",
     "marked": "^0.7.0",
     "marked-terminal": "^3.2.0"
+  },
+  "devDependencies": {
+    "@ianwalter/eslint-config": "^2.0.1",
+    "@ianwalter/renovate-config": "^1.1.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@ianwalter"
+    ]
+  },
+  "renovate": {
+    "extends": [
+      "@ianwalter"
+    ]
   }
 }
