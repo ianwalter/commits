@@ -6,6 +6,7 @@
   "bin": {
     "commits": "cli.js"
   },
+  "main": "index.js",
   "scripts": {
     "commits": "./cli.js"
   },
