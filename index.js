@@ -28,9 +28,15 @@ module.exports = async (start = 30, end, excludeMerges = true) => {
   }
 
   //
+  const { stdout: remote } = await execa('git', ['config', 'remote.origin.url'])
+  const [repo] = remote.split(':')[1].split('.git')
+  const ghUrl = `https://github.com/${repo}`
+
+  //
   const { stdout } = await execa('git', args)
 
   //
+  let inBody = false
   return stdout.split('\n').reduce(
     (acc, commit) => {
       //
@@ -38,12 +44,14 @@ module.exports = async (start = 30, end, excludeMerges = true) => {
         //
         let [hash, subject] = commit.split('SUBJECT:')
         if (hash.length === 7 && hash[6] !== ' ') {
-          const markdown = `* \`${hash}\` ${subject}`
+          const markdown = `* [${hash}](${ghUrl}/commit/${hash}) ${subject}`
           acc.commits.push({ hash, subject, markdown })
-          acc.markdown += markdown + '\n'
+          acc.markdown += (inBody ? '\n' : '') + markdown + '\n'
+          inBody = false
         } else {
           acc.commits[acc.commits.length - 1].body = hash
-          acc.markdown += '> ' + hash + '\n'
+          acc.markdown += '\n>   ' + hash
+          inBody = true
         }
       }
 
