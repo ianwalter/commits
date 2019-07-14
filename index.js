@@ -18,6 +18,10 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
     const format = '--format=%h'
     const { stdout } = await execa('git', ['log', `--grep=${start}`, format])
 
+    if (!stdout) {
+      throw new Error(`Start commit not found using: ${start}`)
+    }
+
     let endHash
     if (end !== 'HEAD') {
       const { stdout } = await execa('git', ['log', `--grep=${end}`, format])
