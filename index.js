@@ -38,7 +38,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
     }
 
     //
-    const commitRange = `${startHash}^..${endHash}`
+    const commitRange = `${startHash}..${endHash}`
     const commitRangeUrl = `${ghUrl}/compare/${encodeURIComponent(commitRange)}`
 
     //
