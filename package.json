@@ -40,7 +40,7 @@
     "strip": "^3.0.0"
   },
   "devDependencies": {
-    "@ianwalter/eslint-config": "^2.0.1",
+    "@ianwalter/eslint-config": "^2.1.0",
     "@ianwalter/release": "^0.0.12",
     "@ianwalter/renovate-config": "^1.1.1"
   },
