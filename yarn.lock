@@ -28,10 +28,10 @@
     getopts "^2.2.5"
     read-pkg-up "^6.0.0"
 
-"@ianwalter/commits@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@ianwalter/commits/-/commits-0.0.3.tgz#75c23a8c23687fc7da61a9487a026deee0cef122"
-  integrity sha512-aXFrGPUoR8TYkL/LOjW0dSao/mRNmGy4xgtskloTVzt/yZrfP7bQsFNZP+VSeCZ4khA58z/xjQYLKz88wSuGHw==
+"@ianwalter/commits@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@ianwalter/commits/-/commits-0.0.4.tgz#f000d2754ca5599e965b130fe10965e8de17b60d"
+  integrity sha512-wJxom4xxjbZRlnqcHkqnb2+dR+VBx9K51L7dFaeLEpN3lZ3XwqccNVPgKb6U347RQWUZT5D3Zc7h4AM0QkRPRA==
   dependencies:
     "@ianwalter/cli" "^1.2.0"
     "@ianwalter/print" "^3.0.1"
@@ -74,13 +74,13 @@
     has-ansi "^3.0.0"
     has-emoji "^1.0.0"
 
-"@ianwalter/release@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@ianwalter/release/-/release-0.0.6.tgz#791a76573640320acbcd021fa2e8e50fdbcf4289"
-  integrity sha512-9irmG2qpnrdArFW2at1Eef/UqDHu5DF+j7EHoDEA01uX0cTxRy4+KHj4N7ZlEcJRWmHw5z7gXbWvhMl/uIm14g==
+"@ianwalter/release@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@ianwalter/release/-/release-0.0.12.tgz#52c8dcb78aea0d2dea0a45d057e0c16a95299c2a"
+  integrity sha512-hbf2pF4JK/o0LOwt7Aquzt+zaf7UZ4WLFbeaZuzCnzARknpf/RHUc8DGAlh7CYRmvjc2yd6DlYqFmsemvfGhnA==
   dependencies:
     "@ianwalter/cli" "^1.2.0"
-    "@ianwalter/commits" "^0.0.3"
+    "@ianwalter/commits" "^0.0.4"
     "@ianwalter/print" "^3.0.1"
     common-tags "^1.8.0"
     execa "^2.0.3"
