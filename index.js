@@ -22,7 +22,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
     data.description = `**Last ${start} commits**`
   } else {
     //
-    const startArgs = ['log', '--format=%h', `--grep=${start}`]
+    const startArgs = ['log', '--format=%h', `--grep=^${start}$`]
     const { stdout: startHash } = await execa('git', startArgs)
 
     if (!startHash) {
@@ -33,7 +33,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
     const endIsNotHead = end !== 'HEAD'
     let endHash = end
     if (endIsNotHead) {
-      const result = await execa('git', ['log', `--grep=${end}`, '--format=%h'])
+      const result = await execa('git', ['log', `--grep=^${end}$`, '--format=%h'])
       endHash = result.stdout
     }
 
