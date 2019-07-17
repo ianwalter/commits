@@ -4,24 +4,26 @@ const strip = require('strip')
 module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
   const data = { commits: [], markdown: '' }
 
-  //
+  // Create the arguments that will be passed to git.
   let args = ['log', '--format=%hSUBJECT:%s\n%b']
 
-  //
+  // Determine if start is a number so that a number of commits can be listed
+  // instead of a range.
   const startNumber = parseInt(start, 10)
   start = isNaN(startNumber) ? start : startNumber
 
-  //
+  // Determine the GitHub repository URL,
   const { stdout: remote } = await execa('git', ['config', 'remote.origin.url'])
   const [repo] = remote.split(':')[1].split('.git')
   const ghUrl = `https://github.com/${repo}`
 
-  //
   if (typeof start === 'number') {
+    // If a number of commits is specified, add the arguments to the git command
+    // and generate the description of the commit list.
     args = args.concat(['-n', start])
     data.description = `**Last ${start} commits**`
   } else {
-    //
+    // Search for the specified commit and get it's hash.
     const startArgs = ['log', '--format=%h', `--grep=^${start}$`]
     const { stdout: startHash } = await execa('git', startArgs)
 
@@ -29,7 +31,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
       throw new Error(`Start commit not found using: ${start}`)
     }
 
-    //
+    // If end is specified, search for the commit and get it's hash.
     const endIsNotHead = end !== 'HEAD'
     let endHash = end
     if (endIsNotHead) {
@@ -38,11 +40,11 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
       endHash = result.stdout
     }
 
-    //
+    // Build the commit range string and URL.
     const commitRange = `${startHash}..${endHash}`
     const commitRangeUrl = `${ghUrl}/compare/${encodeURIComponent(commitRange)}`
 
-    //
+    // Generate the description with a link to the commit range on GitHub.
     data.description = `**Commits from [${start} <${startHash}> to ${end}`
     if (endIsNotHead) {
       data.description += ` <${endHash}>`
@@ -52,15 +54,16 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
     args.push(commitRange)
   }
 
-  //
+  // Exclude merge commits.
   if (excludeMerges) {
     args.push('--no-merges')
   }
 
-  //
+  // Execute the git log command to get the commit list.
   const { stdout } = await execa('git', args)
 
-  //
+  // Parse the commit list into an object containing the data and a markdown
+  // formatted string.
   let inBody = false
   return stdout.split('\n').reduce(
     (acc, commit) => {
