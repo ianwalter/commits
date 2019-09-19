@@ -33,7 +33,7 @@
   "homepage": "https://github.com/ianwalter/commits#readme",
   "dependencies": {
     "@ianwalter/cli": "^1.2.0",
-    "@ianwalter/print": "^3.0.1",
+    "@ianwalter/print": "^3.3.1",
     "execa": "^2.0.3",
     "marked": "^0.7.0",
     "marked-terminal": "^3.2.0",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@ianwalter/eslint-config": "^2.0.1",
-    "@ianwalter/release": "^1.0.2",
+    "@ianwalter/release": "^3.0.3",
     "@ianwalter/renovate-config": "^1.1.1"
   },
   "eslintConfig": {
