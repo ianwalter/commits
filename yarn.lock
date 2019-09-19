@@ -99,7 +99,7 @@
     has-ansi "^3.0.0"
     has-emoji "^1.0.0"
 
-"@ianwalter/print@^3.2.0", "@ianwalter/print@^3.3.1":
+"@ianwalter/print@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@ianwalter/print/-/print-3.3.1.tgz#0901f58c9f557714f20f254014bad504f88d1ba4"
   integrity sha512-RtpdwIVvwcKLnV74hv7ABtqb1Va2V7Yg7wrf/zZiHpqmmpICQlW4KqNJLsu7to6T8kMtAb64+RrgHBpvVnKFhw==
@@ -113,14 +113,14 @@
     marked "^0.7.0"
     marked-terminal "^3.3.0"
 
-"@ianwalter/release@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@ianwalter/release/-/release-3.0.3.tgz#c39aa6d0b4858789cd2f18c955dc42d8b2d44a2d"
-  integrity sha512-1rgBnU/S+sHWYi9ZfFQSjsrzOh/YkOiMZW39bglHvWCKJob7kw7Bpz843V4fDw59y7M5QUHKa0dVaBMVp7gl/w==
+"@ianwalter/release@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@ianwalter/release/-/release-3.0.4.tgz#f198accf9cfbb3e955c5bff54d751c6e21b58be2"
+  integrity sha512-mxhQ7E9k/p7mah3mFh/AhbqO8ycVa6TiRU+sqJdLrXbYRKoHPQRMY4tJTuF8hYBI7VBda1y1fvn+5vEi9KERGA==
   dependencies:
     "@ianwalter/cli" "^1.2.0"
     "@ianwalter/commits" "^0.0.5"
-    "@ianwalter/print" "^3.2.0"
+    "@ianwalter/print" "^3.3.1"
     "@ianwalter/update-package" "^0.0.2"
     common-tags "^1.8.0"
     execa "^2.0.4"
