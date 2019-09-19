@@ -1,7 +1,7 @@
 {
   "name": "@ianwalter/commits",
   "description": "Display a set of git commits in the terminal",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "SEE LICENSE IN LICENSE",
   "bin": {
     "commits": "cli.js"
