@@ -99,7 +99,7 @@
     has-ansi "^3.0.0"
     has-emoji "^1.0.0"
 
-"@ianwalter/print@^3.3.1":
+"@ianwalter/print@^3.2.0", "@ianwalter/print@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@ianwalter/print/-/print-3.3.1.tgz#0901f58c9f557714f20f254014bad504f88d1ba4"
   integrity sha512-RtpdwIVvwcKLnV74hv7ABtqb1Va2V7Yg7wrf/zZiHpqmmpICQlW4KqNJLsu7to6T8kMtAb64+RrgHBpvVnKFhw==
