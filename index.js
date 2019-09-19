@@ -69,7 +69,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
       //
       if (commit.trim()) {
         //
-        let [hash, subject] = commit.split('SUBJECT:')
+        const [hash, subject] = commit.split('SUBJECT:')
         if (hash.length === 7 && hash[6] !== ' ') {
           const markdown = `* [${hash}](${ghUrl}/commit/${hash}) ${subject}`
           acc.commits.push({ hash, subject, markdown })
