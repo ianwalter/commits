@@ -9,8 +9,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
 
   // Determine if start is a number so that a number of commits can be listed
   // instead of a range.
-  const startNumber = parseInt(start, 10)
-  start = isNaN(startNumber) ? start : startNumber
+  start = isNaN(start) ? start : parseInt(start, 10)
 
   // Determine the GitHub repository URL,
   const { stdout: remote } = await execa('git', ['config', 'remote.origin.url'])
