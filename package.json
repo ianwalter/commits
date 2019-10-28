@@ -35,8 +35,6 @@
     "@ianwalter/cli": "^1.2.0",
     "@ianwalter/print": "^3.7.0",
     "execa": "^3.2.0",
-    "marked": "^0.7.0",
-    "marked-terminal": "^3.3.0",
     "strip": "^3.0.0"
   },
   "devDependencies": {
