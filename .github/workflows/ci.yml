@@ -1,10 +1,14 @@
 name: CI
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: node:12.10-slim
+      image: node:12.10
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -12,5 +16,5 @@ jobs:
         run: yarn
       - name: Lint
         run: yarn lint
-      # - name: Test
-      #   run: yarn test
+      - name: Test
+        run: yarn test
