@@ -18,14 +18,9 @@ module.exports = async function (config) {
   start = isNaN(start) ? start : parseInt(start, 10)
 
   // Determine the GitHub repository URL,
-  let ghUrl
-  const remoteArgs = ['config', 'remote.origin.url']
-  const reject = false
-  const { stdout: remote } = await execa('git', remoteArgs, { reject, ...opts })
-  if (remote) {
-    const [repo] = remote.split(':')[1].split('.git')
-    ghUrl = `https://github.com/${repo}`
-  }
+  const { stdout: remote } = await execa('git', ['config', 'remote.origin.url'])
+  const [repo] = remote.split(':')[1].split('.git')
+  const ghUrl = `https://github.com/${repo}`
 
   if (typeof start === 'number') {
     // If a number of commits is specified, add the arguments to the git command
@@ -52,8 +47,7 @@ module.exports = async function (config) {
 
     // Build the commit range string and URL.
     const commitRange = `${startHash}..${endHash}`
-    const commitRangeUrl = ghUrl &&
-      `${ghUrl}/compare/${encodeURIComponent(commitRange)}`
+    const commitRangeUrl = `${ghUrl}/compare/${encodeURIComponent(commitRange)}`
 
     // Generate the description with a link to the commit range on GitHub.
     data.description = `**Commits from [${start} <${startHash}> to ${end}`
