@@ -1,7 +1,13 @@
 const execa = require('execa')
 const strip = require('strip')
 
-module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
+module.exports = async function (config) {
+  let { start = 30, end = 'HEAD', excludeMerges = true } = config
+
+  // Create options that will be passed to execa.
+  const opts = { cwd: config.dir || process.cwd() }
+
+  // Initialize the structure of the data Object that will be returned.
   const data = { commits: [], markdown: '' }
 
   // Create the arguments that will be passed to git.
@@ -12,9 +18,14 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
   start = isNaN(start) ? start : parseInt(start, 10)
 
   // Determine the GitHub repository URL,
-  const { stdout: remote } = await execa('git', ['config', 'remote.origin.url'])
-  const [repo] = remote.split(':')[1].split('.git')
-  const ghUrl = `https://github.com/${repo}`
+  let ghUrl
+  const remoteArgs = ['config', 'remote.origin.url']
+  const reject = false
+  const { stdout: remote } = await execa('git', remoteArgs, { reject, ...opts })
+  if (remote) {
+    const [repo] = remote.split(':')[1].split('.git')
+    ghUrl = `https://github.com/${repo}`
+  }
 
   if (typeof start === 'number') {
     // If a number of commits is specified, add the arguments to the git command
@@ -24,7 +35,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
   } else {
     // Search for the specified commit and get it's hash.
     const startArgs = ['log', '--format=%h', `--grep=^${start}$`]
-    const { stdout: startHash } = await execa('git', startArgs)
+    const { stdout: startHash } = await execa('git', startArgs, opts)
 
     if (!startHash) {
       throw new Error(`Start commit not found using: ${start}`)
@@ -35,13 +46,14 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
     let endHash = end
     if (endIsNotHead) {
       const args = ['log', `--grep=^${end}$`, '--format=%h']
-      const result = await execa('git', args)
+      const result = await execa('git', args, opts)
       endHash = result.stdout
     }
 
     // Build the commit range string and URL.
     const commitRange = `${startHash}..${endHash}`
-    const commitRangeUrl = `${ghUrl}/compare/${encodeURIComponent(commitRange)}`
+    const commitRangeUrl = ghUrl &&
+      `${ghUrl}/compare/${encodeURIComponent(commitRange)}`
 
     // Generate the description with a link to the commit range on GitHub.
     data.description = `**Commits from [${start} <${startHash}> to ${end}`
@@ -59,7 +71,7 @@ module.exports = async (start = 30, end = 'HEAD', excludeMerges = true) => {
   }
 
   // Execute the git log command to get the commit list.
-  const { stdout } = await execa('git', args)
+  const { stdout } = await execa('git', args, opts)
 
   // Parse the commit list into an object containing the data and a markdown
   // formatted string.
