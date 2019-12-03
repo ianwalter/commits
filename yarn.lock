@@ -85,15 +85,15 @@
     getopts "^2.2.5"
     read-pkg-up "^7.0.0"
 
-"@ianwalter/cli@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@ianwalter/cli/-/cli-2.0.1.tgz#e404f2ef75701fd253ddbda8eb4cf516228eaacb"
-  integrity sha512-t9ibJwL3Zpks7+PNRs+A5xfgufvcrA7Kc9Rg1j4o/cYfshJ6EiW0KojswUG3O8DOcXPnYawfEy1mI8UmLZdSVw==
+"@ianwalter/cli@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@ianwalter/cli/-/cli-2.1.1.tgz#91d50392c75b2f99743d1f2470c587ac3d53eda1"
+  integrity sha512-Y//edCQUfYWc2NUh+UClDOhYlZUv9L/urdngdorPcKYxPkkV5b6O7meOZp3fuLbSiMx9Qa17W3dp3zOWnrQMmg==
   dependencies:
     "@ianwalter/merge" "^5.0.0"
-    "@ianwalter/print" "^3.8.0"
+    "@ianwalter/print" "^3.9.0"
     common-tags "^1.8.0"
-    dot-prop "^5.1.1"
+    dot-prop "^5.2.0"
     getopts "^2.2.5"
     read-pkg-up "^7.0.0"
 
@@ -928,6 +928,13 @@ dot-prop@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-5.1.1.tgz#85783b39f2a54e04ae1981489a0ef2b9719bbd7d"
   integrity sha512-QCHI6Lkf+9fJMpwfAFsTvbiSh6ujoPmhCLiDvD/n4dGtLvHfhuBwPdN6z2x4YSOwwtTcLoO/LP70xELWGF/JVA==
+  dependencies:
+    is-obj "^2.0.0"
+
+dot-prop@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-5.2.0.tgz#c34ecc29556dc45f1f4c22697b6f4904e0cc4fcb"
+  integrity sha512-uEUyaDKoSQ1M4Oq8l45hSE26SnTxL6snNnqvK/VWx5wJhmff5z0FUVJDKDanor/6w3kzE3i7XZOk+7wC0EXr1A==
   dependencies:
     is-obj "^2.0.0"
 
