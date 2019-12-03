@@ -38,7 +38,7 @@
   "dependencies": {
     "@ianwalter/cli": "^2.0.1",
     "@ianwalter/print": "^3.9.0",
-    "execa": "^3.2.0",
+    "execa": "^3.4.0",
     "strip": "^3.0.0"
   },
   "devDependencies": {
