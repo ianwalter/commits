@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/ianwalter/commits#readme",
   "dependencies": {
-    "@ianwalter/cli": "^2.1.1",
+    "@ianwalter/cli": "^2.2.1",
     "@ianwalter/print": "^3.9.0",
     "execa": "^3.4.0",
     "strip": "^3.0.0"
