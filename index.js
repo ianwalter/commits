@@ -30,7 +30,8 @@ module.exports = async function (config) {
   } else {
     // Search for the specified commit and get it's hash.
     const startArgs = ['log', '--format=%h', `--grep=^${start}$`]
-    const { stdout: startHash } = await execa('git', startArgs, opts)
+    const { stdout: startHashes } = await execa('git', startArgs, opts)
+    const [startHash] = startHashes.split('\n')
 
     if (!startHash) {
       throw new Error(`Start commit not found using: ${start}`)
